@@ -1,0 +1,94 @@
+# Answers used to fill application forms and to ground cover letters.
+# Copy to config/profile.yaml (gitignored). Contains personal data: never commit it.
+
+identity:
+  first_name: Jane
+  last_name: Doe
+  full_name: Jane Doe
+  email: you@example.com
+  phone: "+10000000000"
+  phone_country_code: "+1"
+  city: City
+  state: State
+  country: Country
+  country_code: XX
+  timezone: Region/City
+  address_line_1: 1 Example Street
+  address_city: City
+  address_state: State
+  postal_code: "00000"
+
+links:
+  github: https://github.com/your-handle
+  portfolio: https://example.dev
+  linkedin: https://www.linkedin.com/in/your-handle
+  website: https://example.dev
+
+professional:
+  current_title: Senior Software Engineer
+  current_company: Example Corp
+  years_experience: 5
+  headline: Senior Software Engineer. Python, Go, TypeScript.
+  primary_stack: Python
+  notice_period: 2 weeks
+  earliest_start: 2 weeks from offer
+  open_to:
+    - full_time
+    - contract
+  willing_to_relocate: false
+  willing_to_travel: true
+
+work_authorization:
+  # "authorized" or "requires_sponsorship" per country code. Drives form filling
+  # and the eligibility filter.
+  XX: authorized
+  US: requires_sponsorship
+  GB: requires_sponsorship
+  CA: requires_sponsorship
+  EU: requires_sponsorship
+  default: requires_sponsorship
+  statement: >-
+    I am based in City, Country and available to work remotely. For onsite
+    roles I would require visa sponsorship.
+
+compensation:
+  expectation_usd_monthly: "4000-7000"
+  expectation_gbp_annual: "55000-80000"
+  statement: >-
+    Open on compensation and flexible depending on scope and total package.
+
+demographics:
+  # EEO questions. "decline" is the safe default.
+  gender: decline
+  race_ethnicity: decline
+  veteran_status: decline
+  disability_status: decline
+  hispanic_latino: decline
+
+forms:
+  # Tick data-processing / privacy consent boxes. Marketing opt-ins are never ticked.
+  accept_application_consent: false
+
+standard_answers:
+  # Keyed by normalized question text; matched on substrings.
+  "how did you hear about": Company careers page
+  "why do you want to work": GENERATED
+  "cover letter": GENERATED
+  "notice period": 2 weeks
+  "are you willing to relocate": "No"
+  "do you require sponsorship": "Yes, for onsite roles. No for remote roles."
+  "years of experience": "5"
+  "current salary": Prefer not to disclose
+  "expected salary": See compensation statement
+  "referred by": ""
+
+cv:
+  base_pdf: data/cv/base.pdf
+  base_docx: data/cv/base.docx
+  tone: direct, concrete, evidence-led, no filler
+  max_words: 280
+
+# The only facts the cover letter writer may draw on. Grounding the model in
+# real facts is what stops it inventing achievements.
+evidence:
+  - "A concrete, verifiable achievement."

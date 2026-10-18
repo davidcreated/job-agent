@@ -1,0 +1,63 @@
+# Structured CV. Copy to config/cv.yaml (gitignored) and fill in your own.
+#
+# Tailoring selects and reorders from this file. It never invents. Every
+# bullet here must be a real claim, so anything the renderer emits is
+# defensible in an interview. `tags` drive relevance scoring per job.
+
+header:
+  name: Jane Doe
+  title: Senior Software Engineer
+  default_subtitle: Python | TypeScript | Go | AWS
+  # Optional headline per stack, chosen when a posting leans that way.
+  # Keys match summary.emphasis below.
+  title_variants:
+    backend: Senior Backend Engineer | Python, Go, PostgreSQL
+  email: you@example.com
+  phone: "+1 555 000 0000"
+  location: City, Country
+  linkedin: linkedin.com/in/your-handle
+  github: github.com/your-handle
+  portfolio: example.dev
+
+summary:
+  base: >-
+    Software engineer with N years of experience shipping production apps end to end.
+  # Appended when the role's primary stack matches. Any key from TAG_SIGNALS in
+  # scripts/render_cv.py works (backend, frontend, python, cloud, devops, ...).
+  emphasis:
+    backend: >-
+      One sentence on your backend strengths.
+
+skills:
+  - name: Backend
+    tags: [backend, python]
+    items: >-
+      Python, Go, PostgreSQL, REST and gRPC APIs, testing
+
+experience:
+  - company: Example Corp
+    role: Senior Software Engineer
+    dates: Jan 2022 - Present
+    stack: Python, PostgreSQL, AWS
+    bullets:
+      - text: >-
+          A concrete, verifiable achievement.
+        tags: [backend]
+
+projects:
+  - name: Example Project
+    tags: [backend]
+    detail: >-
+      One or two sentences.
+
+published_apps:
+  - text: "Example App: short description, store link or rating"
+    tags: [backend]
+
+education:
+  - "Example University - B.Sc., Computer Science, 2015 - 2019"
+
+leadership:
+  - text: >-
+      Mentorship or leadership claim.
+    tags: [leadership]

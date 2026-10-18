@@ -1,0 +1,11 @@
+*.bak
+*.log
+*.pyc
+.env
+.venv/
+__pycache__/
+config/cv.yaml
+config/profile.yaml
+data/
+screenshots/
+tasks/

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.example.jobagent</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/caffeinate</string>
+    <string>-i</string>
+    <string>/path/to/job-agent/.venv/bin/python</string>
+    <string>/path/to/job-agent/scripts/watch.py</string>
+    <string>--interval</string><string>900</string>
+  </array>
+  <key>WorkingDirectory</key><string>/path/to/job-agent</string>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>StandardOutPath</key><string>/path/to/job-agent/data/watch.log</string>
+  <key>StandardErrorPath</key><string>/path/to/job-agent/data/watch.err</string>
+  <key>EnvironmentVariables</key>
+  <dict><key>PYTHONUNBUFFERED</key><string>1</string></dict>
+  <key>ProcessType</key><string>Background</string>
+</dict>
+</plist>

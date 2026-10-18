@@ -1,0 +1,277 @@
+# What counts as a job worth applying to.
+# Edit freely. Every consumer reads this file, nothing is hardcoded.
+# The defaults below are a broad starting point for software engineers.
+# Narrow them to your own stack, seniority and location.
+
+search:
+  # Queries sent to the scraped job boards (scripts/fetch_jobspy.py).
+  terms:
+    - senior software engineer
+    - backend engineer
+    - full stack engineer
+    - frontend engineer
+    - platform engineer
+  # [location text, Indeed country code]. JobSpy needs a real country here,
+  # "worldwide" silently returns nothing. Put your own country first.
+  locations:
+    - [United States, usa]
+    - [United Kingdom, uk]
+    - [Canada, canada]
+    - [Germany, germany]
+    - [Netherlands, netherlands]
+    - [India, india]
+
+titles:
+  # Matched case-insensitively against the posting title.
+  # Bare tokens are deliberate. "Senior Software Engineer - Android" and
+  # "Software Engineer, Mobile" are real matches that a phrase list like
+  # "android engineer" silently drops. The exclude list below does the
+  # narrowing instead.
+  include:
+    - software engineer
+    - software developer
+    - developer
+    - engineer
+    - programmer
+    - backend
+    - back-end
+    - frontend
+    - front-end
+    - full stack
+    - full-stack
+    - fullstack
+    - platform
+    - devops
+    - sre
+    - site reliability
+    - infrastructure
+    - data engineer
+    - machine learning
+    - mobile
+    - android
+    - ios
+    - react native
+    - flutter
+  # A title hit here rejects the posting outright, even if include matched.
+  exclude:
+    - intern
+    - internship
+    - graduate
+    - trainee
+    - apprentice
+    - student
+    - entry level
+    - junior
+    - volunteer
+    - sales
+    - account executive
+    - recruiter
+    - talent partner
+    - product manager
+    - product designer
+    - ux designer
+    - ui designer
+    - designer
+    - researcher
+    - user research
+    - marketing
+    - strategist
+    - copywriter
+    - content
+    - data scientist
+    - data analyst
+    - manual qa
+    - qa analyst
+    - game developer
+    - unity
+    - unreal
+    - solutions architect
+    - sales engineer
+    - customer success
+    - support engineer
+    - technical writer
+
+seniority:
+  # At least one must appear in the title or description.
+  preferred:
+    - senior
+    - staff
+    - principal
+    - lead
+    - iv
+    - "iii"
+    - manager
+    - head of
+  # Years of experience demanded. Postings above this are rejected.
+  max_years_required: 10
+
+stack:
+  # Your primary strengths. Weighted highest in scoring. Replace with yours.
+  core:
+    - python
+    - typescript
+    - javascript
+    - react
+    - node
+    - go
+    - golang
+    - java
+    - kotlin
+    - rust
+  # Real but secondary. Counts toward a match, never alone.
+  secondary:
+    - postgresql
+    - docker
+    - kubernetes
+    - aws
+    - graphql
+    - redis
+    - terraform
+    - fastapi
+  # Terms that mean the role is not what you want.
+  disqualifying:
+    - cobol
+    - salesforce
+    - sharepoint
+    - wordpress
+
+regions:
+  # Both lists empty means every region is accepted.
+  # allow: when non-empty, a posting must resolve to one of these (or to
+  #   "unknown"). Example: [united states, canada, europe, remote]
+  # deny: hard denylist, rejected even when the allowlist also matches.
+  allow: []
+  deny: []
+
+eligibility:
+  # Which postings you can actually take is decided from your own profile
+  # (config/profile.yaml -> work_authorization) and the LLM's reading of the
+  # full posting. Each value below maps to a routing decision.
+  auto_apply:
+    - global_remote     # open to candidates anywhere
+    - eor               # hires via Deel, Remote.com, EOR, or B2B contract
+    - home_region       # the role is in your own country or region
+  queue_for_review:
+    - sponsor           # visa sponsorship or relocation, long cycle
+    - unknown           # eligibility could not be determined
+  reject:
+    - us_only           # explicitly requires US work authorization
+    - uk_only
+    - eu_only
+    - citizen_only      # security clearance or citizenship required
+
+  # Extra words that mean "this role is in my region", on top of the city and
+  # country read from your profile. Example: [africa, emea, pan-african].
+  home_markers: []
+
+  # Phrases that force a reject, grouped by the authorization they demand.
+  # A group is skipped when your profile says you are "authorized" there
+  # (work_authorization: US / GB / EU). citizen_only is never skipped.
+  blocking_phrases:
+    us_only:
+      - must be authorized to work in the united states
+      - must be authorized to work in the us
+      - us citizens only
+      - u.s. citizens only
+      - requires us citizenship
+      - must reside in the united states
+      - must be located in the us
+      - no visa sponsorship
+      - we do not sponsor
+      - unable to sponsor
+    uk_only:
+      - must have the right to work in the uk
+    eu_only:
+      - must be based in the eu
+      - eu work authorization required
+    citizen_only:
+      - security clearance
+
+salary:
+  # Hard floor. Below this a posting is rejected.
+  # Set deliberately low so nothing is missed. Ranking does the real work.
+  floors:
+    NGN: 500000     # per month
+    USD: 500        # per month
+    GBP: 500        # per month
+    EUR: 550        # per month, derived
+    CAD: 680        # per month, derived
+  period: month
+
+  # Postings that list no salary are kept. Roughly two thirds of the market
+  # omits pay, and rejecting them would discard most real opportunities.
+  keep_unlisted: true
+
+  # Ranking tier, applied after the floor. Does not reject, only labels
+  # and sorts, so good roles surface above cheap ones in the queue.
+  tiers:
+    below_market: 2000    # USD/month equivalent, tagged and deprioritized
+    market: 4000
+    strong: 7000
+
+  # Used only to compare floors and tiers across currencies.
+  # Refresh occasionally, these drift.
+  usd_rates:
+    NGN: 0.00065
+    USD: 1.0
+    GBP: 1.27
+    EUR: 1.09
+    CAD: 0.73
+
+employment_types:
+  - full_time
+  - contract
+  - freelance
+  - part_time
+
+dealbreakers:
+  # Phrases, never bare words. "unpaid" alone rejected a perfect Flutter role
+  # because the benefits section offered unpaid sabbatical leave.
+  - unpaid position
+  - unpaid role
+  - unpaid internship
+  - this role is unpaid
+  - this position is unpaid
+  - equity only
+  - equity-only
+  - commission only
+  - commission-only
+  - no salary offered
+  - training fee
+  - pay to apply
+  - registration fee
+  - application fee
+
+scoring:
+  # Minimum match score to act on a posting.
+  apply_threshold: 72
+  # Between review_threshold and apply_threshold, it goes to the queue
+  # instead of being dropped.
+  review_threshold: 60
+
+  # Which LLM does the scoring and writing. One of: gemini, anthropic, openai,
+  # xai, deepseek, mistral, qwen, moonshot, zhipu, minimax, cohere, groq,
+  # together, openrouter, ollama. Needs that provider's key in .env.
+  # LLM_PROVIDER and LLM_MODEL in .env override these.
+  provider: gemini
+  # Leave empty for the provider's default. Model names change often, list
+  # the ones your key can use with: python scripts/llm.py models <provider>
+  model:
+
+approval:
+  # Off by default. Turn on to auto-approve everything that would otherwise
+  # wait in the Telegram queue.
+  # The queue still receives the message, so you keep a record of what went
+  # out and can still tap Skip, but nothing waits on you.
+  auto_approve: false
+
+  # Separate switch, deliberately. Indeed and LinkedIn prohibit automated
+  # applying and LinkedIn restricts accounts for it. This is the only setting
+  # in the file that carries a real account risk. Set to false to keep
+  # auto-approval for clean sources while still gating scraped ones.
+  auto_approve_scraped: false
+
+limits:
+  max_submissions_per_day: 20
+  max_submissions_per_company_per_month: 2
+  fetch_interval_hours: 2
